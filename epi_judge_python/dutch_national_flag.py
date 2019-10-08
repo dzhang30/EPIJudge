@@ -8,7 +8,7 @@ RED, WHITE, BLUE = range(3)
 
 
 def dutch_flag_partition(pivot_index, A):
-    # TODO - you fill in here. hi test
+    # TODO - you fill in here.
     return
 
 
