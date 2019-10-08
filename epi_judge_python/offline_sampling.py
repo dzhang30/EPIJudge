@@ -1,4 +1,5 @@
 import functools
+import random
 
 from test_framework import generic_test
 from test_framework.random_sequence_checker import (
@@ -9,7 +10,18 @@ from test_framework.test_utils import enable_executor_hook
 
 def random_sampling(k, A):
     # TODO - you fill in here.
-    return
+    start = 0
+    while start < k:
+        random_index = random.randint(start, len(A) - 1)
+        temp = A[random_index]
+        A[random_index] = A[start]
+        A[start] = temp
+        start += 1
+
+    # for i in range(k):
+    #     random_index = random.randint(i, len(A) - 1)
+    #     A[i], A[random_index] = A[random_index], A[i]
+    return A
 
 
 @enable_executor_hook
@@ -44,3 +56,6 @@ if __name__ == '__main__':
         generic_test.generic_test_main("offline_sampling.py",
                                        'offline_sampling.tsv',
                                        random_sampling_wrapper))
+    # A = [1, 2, 3, 4, 20 , 5, 99, 100, 234, 3413, 33]
+    # k =1
+    # print(random_sampling(k, A))
