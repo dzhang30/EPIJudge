@@ -1,5 +1,4 @@
 from test_framework import generic_test
-from pprint import pprint
 
 
 def matrix_in_spiral_order(square_matrix):
