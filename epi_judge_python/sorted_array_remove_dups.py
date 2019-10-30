@@ -10,13 +10,13 @@ def delete_duplicates(A):
     if not A:
         return 0
 
-    i = 0
-    for j in range(1, len(A)):
-        if A[i] != A[j]:
-            i += 1
-            A[i] = A[j]
+    duplicate_index = 0
+    for i in range(len(A)):
+        if A[i] != A[duplicate_index]:
+            duplicate_index += 1
+            A[duplicate_index] = A[i]
 
-    return i + 1
+    return duplicate_index + 1
 
 
 
