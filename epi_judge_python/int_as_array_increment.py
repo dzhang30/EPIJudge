@@ -3,21 +3,37 @@ from test_framework import generic_test
 
 def plus_one(A):
     # TODO - you fill in here.
-    r_arr = A[::-1]
-    carry = True
+    r_arr = list(reversed(A))
+    b = 1
     for i in range(len(r_arr)):
-        if carry:
-            sum = r_arr[i] + 1
-            if sum > 9:
-                r_arr[i] = 0
-            else:
-                r_arr[i] = sum
-                carry = False
+        sum = r_arr[i] + b
+        if sum >= 10:
+            r_arr[i] = 0
+            b = 1
+        else:
+            r_arr[i] = sum
+            b = 0
 
-    if carry:
+    if b == 1:
         r_arr.append(1)
 
     return r_arr[::-1]
+
+    # r_arr = A[::-1]
+    # carry = True
+    # for i in range(len(r_arr)):
+    #     if carry:
+    #         sum = r_arr[i] + 1
+    #         if sum > 9:
+    #             r_arr[i] = 0
+    #         else:
+    #             r_arr[i] = sum
+    #             carry = False
+    #
+    # if carry:
+    #     r_arr.append(1)
+    #
+    # return r_arr[::-1]
 
 if __name__ == '__main__':
     exit(

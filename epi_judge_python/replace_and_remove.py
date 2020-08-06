@@ -6,6 +6,7 @@ from test_framework.test_utils import enable_executor_hook
 
 def replace_and_remove(size, s):
     # TODO - you fill in here.
+    print(f'size: {size}, arr: {s}')
     return 0
 
 

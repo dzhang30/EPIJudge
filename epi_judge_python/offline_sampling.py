@@ -10,18 +10,31 @@ from test_framework.test_utils import enable_executor_hook
 
 def random_sampling(k, A):
     # TODO - you fill in here.
-    start = 0
-    while start < k:
-        random_index = random.randint(start, len(A) - 1)
-        temp = A[random_index]
-        A[random_index] = A[start]
-        A[start] = temp
-        start += 1
+    replaced_index = 0
+    for i in range(k):
+        rand_index = random.randint(replaced_index, len(A) - 1)
+        swap(A, rand_index, replaced_index)
+        replaced_index += 1
 
-    # for i in range(k):
-    #     random_index = random.randint(i, len(A) - 1)
-    #     A[i], A[random_index] = A[random_index], A[i]
     return A
+
+    # start = 0
+    # while start < k:
+    #     random_index = random.randint(start, len(A) - 1)
+    #     temp = A[random_index]
+    #     A[random_index] = A[start]
+    #     A[start] = temp
+    #     start += 1
+    #
+    # # for i in range(k):
+    # #     random_index = random.randint(i, len(A) - 1)
+    # #     A[i], A[random_index] = A[random_index], A[i]
+    # return A
+
+def swap(arr, i, j):
+    temp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = temp
 
 
 @enable_executor_hook
@@ -57,5 +70,5 @@ if __name__ == '__main__':
                                        'offline_sampling.tsv',
                                        random_sampling_wrapper))
     # A = [1, 2, 3, 4, 20 , 5, 99, 100, 234, 3413, 33]
-    # k =1
+    # k = 3
     # print(random_sampling(k, A))
