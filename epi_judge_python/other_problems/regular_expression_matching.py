@@ -47,65 +47,69 @@ Output: false
 
 
 def isMatch(s: str, p: str) -> bool:
-    def is_match_recurse(string: str, pattern: str, i: int, j: int):
-        if i > len(string) - 1 >= 0:
-            return (j == len(pattern) - 2 and pattern[j + 1] == '*') or j > len(pattern) - 1
+    def is_match(string: str, pattern: str, i: int, j: int):
+        if j == len(pattern):
+            return i == len(string)
 
-        if j > len(pattern) - 1:
-            return i > len(string) - 1
-
-        if string and (string[i] == pattern[j] or pattern[j] == '.'):
-            if j + 1 < len(pattern) and pattern[j + 1] == '*':
-                return is_match_recurse(string, pattern, i, j + 2) or is_match_recurse(string, pattern, i + 1, j)
+        if j + 1 < len(pattern) and pattern[j + 1] == '*':
+            if i < len(string) and (string[i] == pattern[j] or pattern[j] == '.'):
+                keep_string_advance_pattern = is_match(string, pattern, i, j + 2)
+                advance_string_keep_pattern = is_match(string, pattern, i + 1, j)
+                return keep_string_advance_pattern or advance_string_keep_pattern
             else:
-                return is_match_recurse(string, pattern, i + 1, j + 1)
-
+                keep_string_advance_pattern = is_match(string, pattern, i, j + 2)
+                return keep_string_advance_pattern
         else:
-            if j + 1 < len(pattern) and pattern[j + 1] == '*':
-                return is_match_recurse(string, pattern, i, j + 2)
+            if i < len(string) and string[i] == pattern[j] or pattern[j] == '.':
+                advance_string_and_pattern = is_match(string, pattern, i + 1, j + 1)
+                return advance_string_and_pattern
             else:
                 return False
 
-    return is_match_recurse(s, p, 0, 0)
+    return is_match(s, p, 0, 0)
 
 
 if __name__ == '__main__':
-    # s = 'mississippi'
-    # p = 'mis*is*p*.'
-    # assert isMatch(s, p) is False
-    #
-    # s = 'aab'
-    # p = 'c*a*b'
-    # assert isMatch(s, p) is True
-    #
-    # s = 'aa'
-    # p = 'a'
-    # assert isMatch(s, p) is False
-    #
-    # s = 'ab'
-    # p = '.*'
-    # assert isMatch(s, p) is True
-    #
-    # s = 'ab'
-    # p = '.*ab'
-    # assert isMatch(s, p) is True
-    #
-    # s = 'ab'
-    # p = '.*c'
-    # assert isMatch(s, p) is False
-    #
-    # s = 'aaa'
-    # p = 'aaaa'
-    # assert isMatch(s, p) is False
-    #
-    # s = ""
-    # p = "c*c*"
-    # assert isMatch(s, p) is True
-    #
-    # s = 'a'
-    # p = 'ab*'
-    # assert isMatch(s, p) is True
+    s = 'mississippi'
+    p = 'mis*is*p*.'
+    assert isMatch(s, p) is False
+
+    s = 'aab'
+    p = 'c*a*b'
+    assert isMatch(s, p) is True
+
+    s = 'aa'
+    p = 'a'
+    assert isMatch(s, p) is False
+
+    s = 'ab'
+    p = '.*'
+    assert isMatch(s, p) is True
+
+    s = 'ab'
+    p = '.*ab'
+    assert isMatch(s, p) is True
+
+    s = 'ab'
+    p = '.*c'
+    assert isMatch(s, p) is False
+
+    s = 'aaa'
+    p = 'aaaa'
+    assert isMatch(s, p) is False
+
+    s = ""
+    p = "c*c*"
+    assert isMatch(s, p) is True
+
+    s = 'a'
+    p = 'ab*'
+    assert isMatch(s, p) is True
 
     s = 'aabcbcbcaccbcaabc'
     p = '.*a*aa*.*b*.c*.*a*'
-    print(isMatch(s, p))
+    assert isMatch(s, p) is True
+
+    s = 'bbbba'
+    p = '.*a*a'
+    assert isMatch(s, p) is True
